@@ -21,7 +21,6 @@ simple-invoice-app/ │ ├── frontend/ # Aplicación Angular │ └── 
 - Creación de facturas con múltiples productos y formas de pago.
 - Filtros para búsqueda de facturas por número, fecha y monto.
 - Visualización de historial de ventas y productos más vendidos.
-- 
 ## Autor
 
 Joel Jerry Bermeo Lopez.
