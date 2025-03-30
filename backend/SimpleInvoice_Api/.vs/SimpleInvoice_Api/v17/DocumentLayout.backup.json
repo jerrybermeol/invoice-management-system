@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|c:\\users\\lenovo\\documents\\jerry desa\\proyectos\\invoice-management-system\\backend\\simpleinvoice_api\\simpleinvoice_api\\controllers\\formapagocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|solutionrelative:simpleinvoice_api\\controllers\\formapagocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|c:\\users\\lenovo\\documents\\jerry desa\\proyectos\\invoice-management-system\\backend\\simpleinvoice_api\\simpleinvoice_api\\controllers\\detallefacturacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|solutionrelative:simpleinvoice_api\\controllers\\detallefacturacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|c:\\users\\lenovo\\documents\\jerry desa\\proyectos\\invoice-management-system\\backend\\simpleinvoice_api\\simpleinvoice_api\\controllers\\facturascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{94F1F9C7-0601-468D-BE13-493708C94749}|SimpleInvoice_Api\\SimpleInvoice_Api.csproj|solutionrelative:simpleinvoice_api\\controllers\\facturascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,19 +39,45 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "FormaPagoController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\FormaPagoController.cs",
+              "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\FormaPagoController.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\FormaPagoController.cs",
+              "RelativeToolTip": "SimpleInvoice_Api\\Controllers\\FormaPagoController.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAwFYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T02:56:22.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DetalleFacturaController.cs",
+              "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\DetalleFacturaController.cs",
+              "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\DetalleFacturaController.cs",
+              "ToolTip": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\DetalleFacturaController.cs",
+              "RelativeToolTip": "SimpleInvoice_Api\\Controllers\\DetalleFacturaController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAAwFgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-03-30T00:41:11.012Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "FacturasController.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\FacturasController.cs",
               "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\FacturasController.cs",
               "ToolTip": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\FacturasController.cs",
               "RelativeToolTip": "SimpleInvoice_Api\\Controllers\\FacturasController.cs",
-              "ViewState": "AgIAAEUAAAAAAAAAAAAAAGIAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-03-30T00:32:49.208Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 3,
               "Title": "UsuariosController.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\UsuariosController.cs",
               "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\UsuariosController.cs",
@@ -51,12 +85,11 @@
               "RelativeToolTip": "SimpleInvoice_Api\\Controllers\\UsuariosController.cs",
               "ViewState": "AgIAAEAAAAAAAAAAAAAAAFoAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T00:29:47.739Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-30T00:29:47.739Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "ProductosController.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\ProductosController.cs",
               "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\ProductosController.cs",
@@ -64,12 +97,11 @@
               "RelativeToolTip": "SimpleInvoice_Api\\Controllers\\ProductosController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-03-30T00:21:08.973Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-30T00:21:08.973Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 5,
               "Title": "ClientesController.cs",
               "DocumentMoniker": "C:\\Users\\LENOVO\\Documents\\JERRY DESA\\PROYECTOS\\invoice-management-system\\backend\\SimpleInvoice_Api\\SimpleInvoice_Api\\Controllers\\ClientesController.cs",
               "RelativeDocumentMoniker": "SimpleInvoice_Api\\Controllers\\ClientesController.cs",

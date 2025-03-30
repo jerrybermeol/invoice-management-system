@@ -109,6 +109,115 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "SimpleInvoice_Api.Controllers.DetalleFacturaController",
+    "Method": "GetDetalles",
+    "RelativePath": "api/DetalleFactura",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SimpleInvoice_Api.Models.DetalleFactura, SimpleInvoice_Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.DetalleFacturaController",
+    "Method": "PostDetalle",
+    "RelativePath": "api/DetalleFactura",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "detalle",
+        "Type": "SimpleInvoice_Api.Models.DetalleFactura",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SimpleInvoice_Api.Models.DetalleFactura",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.DetalleFacturaController",
+    "Method": "GetDetalle",
+    "RelativePath": "api/DetalleFactura/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SimpleInvoice_Api.Models.DetalleFactura",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.DetalleFacturaController",
+    "Method": "PutDetalle",
+    "RelativePath": "api/DetalleFactura/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "detalle",
+        "Type": "SimpleInvoice_Api.Models.DetalleFactura",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.DetalleFacturaController",
+    "Method": "DeleteDetalle",
+    "RelativePath": "api/DetalleFactura/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SimpleInvoice_Api.Controllers.FacturasController",
     "Method": "GetFacturas",
     "RelativePath": "api/Facturas",
@@ -205,6 +314,115 @@
     "ContainingType": "SimpleInvoice_Api.Controllers.FacturasController",
     "Method": "DeleteFactura",
     "RelativePath": "api/Facturas/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.FormaPagoController",
+    "Method": "GetFormasPago",
+    "RelativePath": "api/FormaPago",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SimpleInvoice_Api.Models.FormaPago, SimpleInvoice_Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.FormaPagoController",
+    "Method": "PostFormaPago",
+    "RelativePath": "api/FormaPago",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "formaPago",
+        "Type": "SimpleInvoice_Api.Models.FormaPago",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SimpleInvoice_Api.Models.FormaPago",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.FormaPagoController",
+    "Method": "GetFormaPago",
+    "RelativePath": "api/FormaPago/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "SimpleInvoice_Api.Models.FormaPago",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.FormaPagoController",
+    "Method": "PutFormaPago",
+    "RelativePath": "api/FormaPago/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "formaPago",
+        "Type": "SimpleInvoice_Api.Models.FormaPago",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.FormaPagoController",
+    "Method": "DeleteFormaPago",
+    "RelativePath": "api/FormaPago/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
