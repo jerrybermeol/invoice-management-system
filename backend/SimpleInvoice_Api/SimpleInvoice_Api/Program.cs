@@ -1,6 +1,13 @@
+using Microsoft.EntityFrameworkCore;
+using SimpleInvoice_Api.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+// Agrega el ApplicationDbContext y la cadena de conexión
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

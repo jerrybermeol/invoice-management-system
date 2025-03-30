@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "gbmsxdATh+xHRwL+FpG5HDdyjFE3zMuXi9kCLJR5roI=",
+  "Source": "SimpleInvoice_Api",
+  "BasePath": "_content/SimpleInvoice_Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
