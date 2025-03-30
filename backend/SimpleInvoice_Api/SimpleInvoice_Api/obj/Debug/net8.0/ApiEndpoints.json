@@ -573,22 +573,12 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "usuario",
-        "Type": "SimpleInvoice_Api.Models.Usuario",
+        "Name": "dto",
+        "Type": "SimpleInvoice_Api.Models.Auth.CreateUsuarioDto",
         "IsRequired": true
       }
     ],
-    "ReturnTypes": [
-      {
-        "Type": "SimpleInvoice_Api.Models.Usuario",
-        "MediaTypes": [
-          "text/plain",
-          "application/json",
-          "text/json"
-        ],
-        "StatusCode": 200
-      }
-    ]
+    "ReturnTypes": []
   },
   {
     "ContainingType": "SimpleInvoice_Api.Controllers.UsuariosController",
@@ -648,6 +638,22 @@
       {
         "Name": "id",
         "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SimpleInvoice_Api.Controllers.UsuariosController",
+    "Method": "Login",
+    "RelativePath": "api/Usuarios/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "SimpleInvoice_Api.Models.Auth.LoginRequest",
         "IsRequired": true
       }
     ],

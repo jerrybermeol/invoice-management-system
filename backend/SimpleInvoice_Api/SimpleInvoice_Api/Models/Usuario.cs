@@ -12,6 +12,12 @@ namespace SimpleInvoice_Api.Models
         [Required]
         public string UsuarioNombre { get; set; } = string.Empty;
 
+        [Required]
+        public string Password { get; set; } = string.Empty;
+
+        public string Rol { get; set; } = "User";
+
+
         [EmailAddress]
         public string Email { get; set; } = string.Empty;
 

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleInvoice_Api.Data;
 using SimpleInvoice_Api.Models;
@@ -6,6 +7,7 @@ using SimpleInvoice_Api.Models;
 
 namespace SimpleInvoice_Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class ClientesController : ControllerBase

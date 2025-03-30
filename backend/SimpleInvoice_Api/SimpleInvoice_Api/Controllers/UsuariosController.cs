@@ -1,19 +1,31 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.Data;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
 using SimpleInvoice_Api.Data;
 using SimpleInvoice_Api.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using SimpleInvoice_Api.Models.Auth;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace SimpleInvoice_Api.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class UsuariosController : ControllerBase
     {
         private readonly ApplicationDbContext _context;
+        private readonly IConfiguration _configuration;
 
-        public UsuariosController(ApplicationDbContext context)
+        public UsuariosController(ApplicationDbContext context, IConfiguration configuration)
         {
             _context = context;
+            _configuration = configuration;
         }
 
         // GET: api/Usuarios
@@ -35,11 +47,73 @@ namespace SimpleInvoice_Api.Controllers
             return usuario;
         }
 
-        // POST: api/Usuarios
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public IActionResult Login([FromBody] SimpleInvoice_Api.Models.Auth.LoginRequest request)
+        {            
+
+            var user = _context.Usuarios.FirstOrDefault(u => u.UsuarioNombre == request.Username);
+
+            if (user == null || !BCrypt.Net.BCrypt.Verify(request.Password, user.Password))
+            {
+                return Unauthorized("Credenciales incorrectas");
+            }
+            // Leer la configuración
+            var jwtConfig = _configuration.GetSection("Jwt");
+
+            // Leer la clave secreta desde variable de entorno o user-secrets
+            var secretKey = Environment.GetEnvironmentVariable("JWT_SECRET_KEY") ?? jwtConfig["Key"];
+
+            if (string.IsNullOrEmpty(secretKey))
+                return StatusCode(500, "JWT_SECRET_KEY no está definida");
+
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+
+            var claims = new[]
+            {
+                new Claim(ClaimTypes.Name, user.UsuarioNombre),
+                //new Claim(ClaimTypes.Role, user.Rol ?? "User")
+                new Claim(ClaimTypes.Role, user.Rol)
+            };
+
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var token = new JwtSecurityToken(
+                issuer: jwtConfig["Issuer"],
+                audience: jwtConfig["Audience"],
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(jwtConfig["ExpiresInMinutes"])),
+                signingCredentials: creds
+            );
+
+
+            var tokenString = new JwtSecurityTokenHandler().WriteToken(token);
+
+            return Ok(new { token = tokenString });
+        }
+
+        [Authorize(Policy = "AdminOnly")]
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        public async Task<IActionResult> PostUsuario([FromBody] CreateUsuarioDto dto)
         {
-            usuario.FechaAgregado = DateTime.Now;
+            // Verificar si ya existe el nombre de usuario o email
+            var existeUsuario = await _context.Usuarios
+                .AnyAsync(u => u.UsuarioNombre == dto.UsuarioNombre || u.Email == dto.Email);
+
+            if (existeUsuario)
+                return BadRequest("El nombre de usuario o email ya está registrado.");
+
+
+            var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
+
+            var usuario = new Usuario
+            {
+                Nombre = dto.Nombre,
+                UsuarioNombre = dto.UsuarioNombre,
+                Email = dto.Email,
+                Password = hashedPassword,
+                Rol = dto.Rol,
+                FechaAgregado = DateTime.Now
+            };
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
