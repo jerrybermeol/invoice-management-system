@@ -10,6 +10,8 @@ using System.Security.Claims;
 using System.Text;
 using SimpleInvoice_Api.Models.Auth;
 using Microsoft.AspNetCore.Authorization;
+using SimpleInvoice_Api.Models.DTOs;
+
 
 
 namespace SimpleInvoice_Api.Controllers
@@ -102,7 +104,6 @@ namespace SimpleInvoice_Api.Controllers
             if (existeUsuario)
                 return BadRequest("El nombre de usuario o email ya está registrado.");
 
-
             var hashedPassword = BCrypt.Net.BCrypt.HashPassword(dto.Password);
 
             var usuario = new Usuario
@@ -110,8 +111,8 @@ namespace SimpleInvoice_Api.Controllers
                 Nombre = dto.Nombre,
                 UsuarioNombre = dto.UsuarioNombre,
                 Email = dto.Email,
-                Password = hashedPassword,
-                Rol = dto.Rol,
+                Password = hashedPassword,                
+                Rol = dto.Rol ?? "user",
                 FechaAgregado = DateTime.Now
             };
 
@@ -123,25 +124,29 @@ namespace SimpleInvoice_Api.Controllers
 
         // PUT: api/Usuarios/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> PutUsuario(int id, [FromBody] UsuarioUpdateDto usuario)
         {
             if (id != usuario.Id)
-                return BadRequest();
+                return BadRequest("El ID de la URL no coincide con el ID del usuario.");
 
-            _context.Entry(usuario).State = EntityState.Modified;
+            var usuarioExistente = await _context.Usuarios.FindAsync(id);
+            if (usuarioExistente == null)
+                return NotFound("Usuario no encontrado.");
 
-            try
+            // Actualiza los campos que deseas permitir modificar
+            usuarioExistente.Nombre = usuario.Nombre;
+            usuarioExistente.UsuarioNombre = usuario.UsuarioNombre;
+            usuarioExistente.Email = usuario.Email;
+            //usuarioExistente.Rol = usuario.Rol;
+
+            // Si deseas actualizar contraseña, hazlo aparte (opcional)
+            if (!string.IsNullOrEmpty(usuario.Password))
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsuarioExists(id))
-                    return NotFound();
-                else
-                    throw;
+                usuarioExistente.Password = BCrypt.Net.BCrypt.HashPassword(usuario.Password);
             }
 
+            await _context.SaveChangesAsync();
             return NoContent();
         }
 

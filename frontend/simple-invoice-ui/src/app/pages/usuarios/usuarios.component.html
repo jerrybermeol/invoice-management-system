@@ -1,0 +1,108 @@
+<div class="p-6">
+    <!-- 🔍 Buscador y Botón -->
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-2">
+        <span class="font-semibold">🔍 Buscar usuarios</span>
+        <input
+          type="text"
+          class="border px-2 py-1 rounded"
+          placeholder="Nombres del usuario"
+          [(ngModel)]="filtro"
+        />
+        <button
+          class="bg-sky-500 text-white px-3 py-1 rounded"
+          (click)="buscarUsuarios()"
+        >
+          🔍 Buscar
+        </button>
+      </div>
+      <button
+        class="bg-sky-500 text-white px-3 py-1 rounded"
+        (click)="nuevoUsuario()"
+      >
+        ➕ Nuevo Usuario
+      </button>
+    </div>
+  
+    <!-- 🧾 Tabla de usuarios -->
+    <table class="w-full border border-gray-300">
+      <thead class="bg-sky-100 text-left">
+        <tr>
+          <th class="p-2">ID</th>
+          <th class="p-2">Nombres</th>
+          <th class="p-2">Usuario</th>
+          <th class="p-2">Email</th>
+          <th class="p-2">Agregado</th>
+          <th class="p-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usuario of usuariosFiltrados" class="border-t">
+          <td class="p-2">{{ usuario.id }}</td>
+          <td class="p-2">{{ usuario.nombre }}</td>
+          <td class="p-2">{{ usuario.usuarioNombre }}</td>
+          <td class="p-2">{{ usuario.email }}</td>
+          <td class="p-2">{{ usuario.fechaAgregado | date: 'dd/MM/yyyy' }}</td>
+          <td class="p-2 flex gap-2">
+            <!-- <button class="bg-gray-500 text-white px-2 py-1 rounded">✏️</button> -->
+            <button class="bg-gray-500 text-white px-2 py-1 rounded" (click)="editarUsuario(usuario)">✏️</button>
+            <!-- <button class="bg-red-500 text-white px-2 py-1 rounded">🗑️</button> -->
+            <button class="bg-red-500 text-white px-2 py-1 rounded" (click)="eliminarUsuario(usuario.id)">🗑️</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  
+    <!-- 🧭 Paginación -->
+    <div class="flex justify-end mt-4">
+      <button class="text-sm text-blue-600 mr-2">‹ Anterior</button>
+      <button class="bg-blue-500 text-white px-2 py-1 text-sm rounded">1</button>
+      <button class="text-sm text-blue-600 ml-2">Siguiente ›</button>
+    </div>
+  </div>
+<!-- 🎯 Modal CREAR Usuario -->
+<div *ngIf="mostrarFormularioCrear" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form [formGroup]="formCrearUsuario" (ngSubmit)="guardarUsuario()" class="bg-white p-6 rounded shadow-md max-w-md w-full">
+      <h3 class="text-xl font-bold mb-4 text-center">Agregar nuevo usuario</h3>
+      
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="Nombres" formControlName="nombre">
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="Usuario" formControlName="usuarioNombre">
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="Correo electrónico" formControlName="email" type="email">
+      <!-- <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="user" formControlName="rol"> -->
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="Contraseña" formControlName="password" type="password">
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" placeholder="Repite contraseña" formControlName="repetirPassword" type="password">
+      
+      <div *ngIf="formCrearUsuario.get('repetirPassword')?.touched && formCrearUsuario.get('password')?.value !== formCrearUsuario.get('repetirPassword')?.value" class="text-red-600 text-sm mt-1">
+        Las contraseñas no coinciden
+      </div>
+  
+      <div class="flex justify-between mt-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-700 transition">Guardar</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded" (click)="cerrarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+<!-- ✏️ Modal EDITAR Usuario -->
+<div *ngIf="mostrarFormularioEditar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form [formGroup]="formEditarUsuario" (ngSubmit)="actualizarUsuario()" class="bg-white p-6 rounded shadow-md max-w-md w-full">
+      <h3 class="text-xl font-bold mb-4 text-center">Editar usuario</h3>
+  
+      <input class="form-control mb-2" placeholder="Nombres" formControlName="nombre">
+      <input class="form-control mb-2" placeholder="Usuario" formControlName="usuarioNombre">
+      <input class="form-control mb-2" placeholder="Correo electrónico" formControlName="email" type="email">
+  
+      <select class="form-control mb-2" formControlName="rol">
+        <option value="user">Usuario</option>
+        <option value="admin">Administrador</option>
+      </select>
+  
+      <div class="flex justify-between mt-4">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Actualizar</button>
+        <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded" (click)="cerrarFormulario()">Cancelar</button>
+      </div>
+    </form>
+  </div>
+  
+  
+  
+  

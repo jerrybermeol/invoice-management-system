@@ -621,7 +621,7 @@
       },
       {
         "Name": "usuario",
-        "Type": "SimpleInvoice_Api.Models.Usuario",
+        "Type": "SimpleInvoice_Api.Models.DTOs.UsuarioUpdateDto",
         "IsRequired": true
       }
     ],
