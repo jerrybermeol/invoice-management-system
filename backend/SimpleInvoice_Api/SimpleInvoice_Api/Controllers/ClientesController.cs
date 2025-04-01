@@ -55,7 +55,7 @@ namespace SimpleInvoice_Api.Controllers
         public async Task<IActionResult> PutCliente(int id, Cliente cliente)
         {
             if (id != cliente.Id)
-                return BadRequest();
+                return BadRequest("El ID de la URL no coincide con el ID del usuario.");            
 
             _context.Entry(cliente).State = EntityState.Modified;
 

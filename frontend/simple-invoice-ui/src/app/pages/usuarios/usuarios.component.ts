@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms'; // 👈 Importa esto
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AlertaUtil } from '../../shared/utils/alerta.util';
 
 
 
@@ -73,21 +74,23 @@ export class UsuariosComponent implements OnInit {
       });
   }
 
-  eliminarUsuario(id: number) {
-    if (confirm('¿Estás seguro de que quieres eliminar este usuario?')) {
-      this.http.delete(`https://localhost:7230/api/Usuarios/${id}`)
-        .subscribe({
-          next: () => {
-            alert('Usuario eliminado correctamente');
-            this.obtenerUsuarios(); // refresca la lista
-          },
-          error: err => {
-            console.error(err);
-            alert('Error al eliminar el usuario');
-          }
-        });
-    }
+  eliminarUsuario(id: number, nombre: string): void {
+    AlertaUtil.confirmarEliminar(nombre).then((resultado) => {
+      if (!resultado.isConfirmed) return;
+  
+      this.http.delete(`https://localhost:7230/api/Usuarios/${id}`).subscribe({
+        next: () => {
+          AlertaUtil.exito('Usuario eliminado correctamente');
+          this.obtenerUsuarios(); // Recarga la lista
+        },
+        error: (err) => {
+          console.error(err);
+          AlertaUtil.error('Error al eliminar el usuario');
+        }
+      });
+    });
   }
+  
 
   actualizarUsuario() {
     console.log('Actualizando usuario...');
@@ -102,13 +105,15 @@ export class UsuariosComponent implements OnInit {
 
     this.http.put(`https://localhost:7230/api/Usuarios/${id}`, usuarioActualizado).subscribe({
       next: () => {
-        alert('Usuario actualizado exitosamente');
+        //alert('Usuario actualizado exitosamente');
+        AlertaUtil.exito('Usuario actualizado exitosamente');
         this.obtenerUsuarios();
         this.cerrarFormulario();
       },
       error: err => {
         console.error(err);
-        alert('Error al actualizar el usuario');
+        //alert('Error al actualizar el usuario');
+        AlertaUtil.error('Error al actualizar el usuario');
       }
     });
   }
@@ -131,6 +136,7 @@ export class UsuariosComponent implements OnInit {
     console.log('guardarUsuario usuario...');
     if (this.formCrearUsuario.invalid) {
       console.log('Formulario inválido', this.formCrearUsuario.value);
+      this.formCrearUsuario.markAllAsTouched(); // Muy importante
       return;
     }    
 
@@ -142,14 +148,16 @@ export class UsuariosComponent implements OnInit {
 
     this.http.post('https://localhost:7230/api/Usuarios', usuario).subscribe({
       next: () => {
-        alert('Usuario creado exitosamente');
+        //alert('Usuario creado exitosamente');
+        AlertaUtil.exito('Usuario creado exitosamente');
         this.mostrarFormularioCrear = false;
         this.formCrearUsuario.reset();
         this.obtenerUsuarios();
       },
       error: (err) => {
         console.error(err);
-        alert('Error al crear usuario');
+        //alert('Error al crear usuario');
+        AlertaUtil.error('Error al crear el usuario');
       }
     });
   }

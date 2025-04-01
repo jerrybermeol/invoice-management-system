@@ -1,0 +1,27 @@
+<h2 class="text-xl font-bold mb-4">Lista de Productos</h2>
+<table class="w-full border border-gray-300">
+  <thead class="bg-sky-100 text-left">
+    <tr>
+      <th class="p-2">Código</th>
+      <th class="p-2">Nombre</th>
+      <th class="p-2">Estado</th>
+      <th class="p-2">Agregado</th>
+      <th class="p-2">Precio</th>
+      <th class="p-2">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let producto of productos">
+      <td class="p-2">{{ producto.codigo }}</td>
+      <td class="p-2">{{ producto.nombre }}</td>
+      <td class="p-2">{{ producto.estado }}</td>
+      <td class="p-2">{{ producto.fechaAgregado | date: 'dd/MM/yyyy' }}</td>
+      <td class="p-2">{{ producto.precio | currency }}</td>
+      <td class="p-2">
+        <!-- Botones editar/eliminar irán aquí -->
+        <button class="text-white bg-gray-500 p-1 rounded mr-2">✏️</button>
+        <button class="text-white bg-red-500 p-1 rounded">🗑️</button>
+      </td>
+    </tr>
+  </tbody>
+</table>

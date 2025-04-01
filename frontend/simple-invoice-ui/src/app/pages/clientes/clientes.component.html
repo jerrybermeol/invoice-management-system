@@ -1,1 +1,190 @@
-<p>clientes works!</p>
+<div class="p-6">
+  <!-- 🔍 Buscador -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="font-semibold">🔍 Buscar clientes</span>
+      <input
+        type="text"
+        class="border px-2 py-1 rounded"
+        placeholder="Nombre del cliente"
+        [(ngModel)]="filtro"
+      />
+      <button
+        class="bg-sky-500 text-white px-3 py-1 rounded"
+        (click)="buscarClientes()"
+      >
+        🔎 Buscar
+      </button>
+    </div>
+    <button class="bg-sky-500 text-white px-3 py-1 rounded" (click)="mostrarFormularioCrear = true">➕ Nuevo Cliente</button>
+    <!-- <button
+        class="bg-sky-500 text-white px-3 py-1 rounded"
+        (click)="nuevoUsuario()"
+      >
+        ➕ Nuevo Cliente
+      </button> -->
+  </div>
+
+  <!-- 📋 Tabla de clientes -->
+  <table class="w-full border border-gray-300">
+    <thead class="bg-sky-100 text-left">
+      <tr>
+        <th class="p-2">ID</th>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Teléfono</th>
+        <th class="p-2">Email</th>
+        <th class="p-2">Dirección</th>
+        <th class="p-2">Estado</th>
+        <th class="p-2">Agregado</th>
+        <th class="p-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let cliente of clientesPaginados"
+        class="border-t"
+      >
+        <td class="p-2">{{ cliente.id }}</td>
+        <td class="p-2">{{ cliente.nombre }}</td>
+        <td class="p-2">{{ cliente.telefono }}</td>
+        <td class="p-2">{{ cliente.email }}</td>
+        <td class="p-2">{{ cliente.direccion }}</td>
+        <td class="p-2">{{ cliente.estado }}</td>
+        <td class="p-2">{{ cliente.fechaAgregado | date: 'dd/MM/yyyy' }}</td>
+        <td class="p-2 flex gap-2">
+          <button
+          class="bg-gray-500 text-white px-2 py-1 rounded mr-1"
+          (click)="mostrarFormularioEditarCliente(cliente)"
+          title="Editar cliente"
+          >
+          ✏️
+          </button>
+          <button
+            class="bg-red-500 text-white px-2 py-1 rounded"
+            (click)="eliminarCliente(cliente.id, cliente.nombre)"
+            title="Eliminar cliente"
+            >
+            🗑
+          </button>        
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 📄 Paginación -->
+  <div class="flex justify-end mt-4 items-center gap-2">
+    <button
+      class="text-sm px-3 py-1 border rounded"
+      (click)="anteriorPagina()"
+      [disabled]="paginaActual === 1"
+    >
+      ‹ Anterior
+    </button>
+    <span class="text-sm px-2">Página {{ paginaActual }} / {{ totalPaginas() }}</span>
+    <button
+      class="text-sm px-3 py-1 border rounded"
+      (click)="siguientePagina()"
+      [disabled]="paginaActual >= totalPaginas()"
+    >
+      Siguiente ›
+    </button>
+  </div>
+<!-- Crear clientes -->
+  <div *ngIf="mostrarFormularioCrear" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form [formGroup]="formCrearCliente" (ngSubmit)="crearCliente()" class="bg-white p-6 rounded shadow-md w-full max-w-md w-full">
+      <h3 class="text-xl font-bold mb-4 text-center">Agregar nuevo cliente</h3>
+  
+      <label class="block mb-1 font-semibold">Identificación:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="identificacion" placeholder="Identificación">
+      <div *ngIf="formCrearCliente.get('nombre')?.touched && formCrearCliente.get('nombre')?.invalid" class="text-red-500 text-sm">
+        Identificación es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Nombre:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="nombre" placeholder="Nombre completo">
+      <div *ngIf="formCrearCliente.get('nombre')?.touched && formCrearCliente.get('nombre')?.invalid" class="text-red-500 text-sm">
+        El nombre es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Teléfono:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="telefono" placeholder="Teléfono">
+      <div *ngIf="formCrearCliente.get('telefono')?.touched && formCrearCliente.get('telefono')?.invalid" class="text-red-500 text-sm">
+        El Teléfono es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Email:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="email" placeholder="Correo electrónico" type="email">
+      <div *ngIf="formCrearCliente.get('email')?.touched && formCrearCliente.get('email')?.invalid" class="text-red-500 text-sm">
+        <div *ngIf="formCrearCliente.get('email')?.errors?.['required']">
+          El correo es obligatorio
+        </div>
+        <div *ngIf="formCrearCliente.get('email')?.errors?.['email']">
+          Ingresa un correo válido
+        </div>
+      </div>
+      
+
+      <label class="block mb-1 font-semibold">Dirección:</label>
+      <input class="form-control mb-4 w-full px-3 py-2 border rounded" formControlName="direccion" placeholder="Dirección">
+      <div *ngIf="formCrearCliente.get('direccion')?.touched && formCrearCliente.get('direccion')?.invalid" class="text-red-500 text-sm">
+        Dirección es obligatorio
+      </div>
+
+      <div class="flex justify-between">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+        <button type="button" (click)="mostrarFormularioCrear = false" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+      </div>
+    </form>
+  </div>
+ 
+<!-- Modal EDITAR Cliente -->
+<div *ngIf="mostrarFormularioEditar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <form [formGroup]="formEditarCliente" (ngSubmit)="editarCliente()"
+    class="bg-white p-6 rounded shadow-md w-full max-w-md">
+    <h3 class="text-xl font-bold mb-4 text-center">Editar cliente</h3>
+
+    <div *ngIf="formEditarCliente.invalid && formEditarCliente.touched" class="text-red-600 mb-2 text-center">
+      ⚠️ Por favor, completa todos los campos correctamente.
+    </div>
+
+    <!-- Identificación -->
+    <label class="block mb-1 font-semibold">Identificación:</label>
+    <input class="form-control mb-2 w-full px-3 py-2 border rounded"
+      formControlName="identificacion" placeholder="Identificación">
+
+    <!-- Nombre -->
+    <label class="block mb-1 font-semibold">Nombre:</label>
+    <input class="form-control mb-2 w-full px-3 py-2 border rounded"
+      formControlName="nombre" placeholder="Nombre">
+
+    <!-- Teléfono -->
+    <label class="block mb-1 font-semibold">Teléfono:</label>
+    <input class="form-control mb-2 w-full px-3 py-2 border rounded"
+      formControlName="telefono" placeholder="Teléfono">
+
+    <!-- Email -->
+    <label class="block mb-1 font-semibold">Email:</label>
+    <input class="form-control mb-2 w-full px-3 py-2 border rounded"
+      formControlName="email" placeholder="Correo electrónico" type="email">
+
+    <!-- Dirección -->
+    <label class="block mb-1 font-semibold">Dirección:</label>
+    <input class="form-control mb-2 w-full px-3 py-2 border rounded"
+      formControlName="direccion" placeholder="Dirección">
+
+    <!-- Acciones -->
+    <div class="flex justify-between mt-4">
+      <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 transition">
+        Guardar
+      </button>
+      <button type="button" class="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600 transition"
+        (click)="mostrarFormularioEditar = false">
+        Cancelar
+      </button>
+    </div>
+  </form>
+</div>
+
+  
+
+</div>
