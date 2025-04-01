@@ -22,16 +22,16 @@ export class AlertaUtil {
     });
   }
 
-  static confirmarEliminar(nombre: string): Promise<any> {
+  static confirmarEliminar(nombre: string, tipo: string = 'registro'): Promise<any> {
     return Swal.fire({
       title: '¿Estás seguro?',
-      text: `Eliminar al cliente ${nombre}`,
+      text: `Eliminar el ${tipo} "${nombre}"`,
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#d33',
       cancelButtonColor: '#3085d6',
       confirmButtonText: 'Sí, eliminar',
       cancelButtonText: 'Cancelar'
-    }); // <== solo retorna true o false
+    });
   }
 }

@@ -176,7 +176,7 @@ export class ClientesComponent implements OnInit {
   }  
 
   eliminarCliente(id: number, nombre: string) {
-  AlertaUtil.confirmarEliminar(nombre).then(result => {
+  AlertaUtil.confirmarEliminar(nombre, 'cliente').then(result => {    
     if (result.isConfirmed) {
       this.clienteService.eliminarCliente(id).subscribe({
         next: () => {

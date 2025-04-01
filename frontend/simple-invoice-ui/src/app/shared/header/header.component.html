@@ -1,9 +1,47 @@
 <header class="bg-blue-600 text-white p-4 flex justify-between items-center">
-    <h1 class="text-xl font-bold">Simple Invoice</h1>
-    <nav>
-      <a routerLink="/clientes" class="mx-2 hover:underline">Clientes</a>
-      <a routerLink="/facturas" class="mx-2 hover:underline">Facturas</a>
-      <a routerLink="/productos" class="mx-2 hover:underline">Productos</a>
-    </nav>
-  </header>
-  
+  <h1 class="text-xl font-bold">Simple Invoice</h1>
+
+  <nav class="flex gap-6 items-center">
+    <a routerLink="/inicio" class="flex items-center gap-1 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M3 12l9-9 9 9H16v8H8v-8H3z" />
+      </svg>
+      Inicio
+    </a>
+
+    <a routerLink="/facturas" class="flex items-center gap-1 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M4 3h16v2H4zm0 6h16v2H4zm0 6h10v2H4z" />
+      </svg>
+      Facturas
+    </a>
+
+    <a routerLink="/productos" class="flex items-center gap-1 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M5 4h14v2H5zm0 4h14v2H5zm0 4h14v2H5z" />
+      </svg>
+      Productos
+    </a>
+
+    <a routerLink="/clientes" class="flex items-center gap-1 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4s-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+      </svg>
+      Clientes
+    </a>
+
+    <a routerLink="/usuarios" class="flex items-center gap-1 hover:underline">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 12c2.21 0 4-1.79 4-4S14.21 4 12 4s-4 1.79-4 4 1.79 4 4 4zm6 2h-1.26A8.96 8.96 0 0012 13c-2.39 0-4.55.94-6.12 2.46H4v2h16v-2c0-1.1-.9-2-2-2z"/>
+      </svg>
+      Usuarios
+    </a>
+    <a (click)="cerrarSesion()" class="flex items-center gap-1 hover:underline cursor-pointer">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a2 2 0 01-2 2H7a2 2 0 01-2-2V7a2 2 0 012-2h4a2 2 0 012 2v1" />
+      </svg>
+      Salir
+    </a>
+    
+  </nav>
+</header>

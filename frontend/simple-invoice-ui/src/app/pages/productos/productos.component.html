@@ -1,27 +1,152 @@
-<h2 class="text-xl font-bold mb-4">Lista de Productos</h2>
-<table class="w-full border border-gray-300">
-  <thead class="bg-sky-100 text-left">
-    <tr>
-      <th class="p-2">Código</th>
-      <th class="p-2">Nombre</th>
-      <th class="p-2">Estado</th>
-      <th class="p-2">Agregado</th>
-      <th class="p-2">Precio</th>
-      <th class="p-2">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let producto of productos">
-      <td class="p-2">{{ producto.codigo }}</td>
-      <td class="p-2">{{ producto.nombre }}</td>
-      <td class="p-2">{{ producto.estado }}</td>
-      <td class="p-2">{{ producto.fechaAgregado | date: 'dd/MM/yyyy' }}</td>
-      <td class="p-2">{{ producto.precio | currency }}</td>
-      <td class="p-2">
-        <!-- Botones editar/eliminar irán aquí -->
-        <button class="text-white bg-gray-500 p-1 rounded mr-2">✏️</button>
-        <button class="text-white bg-red-500 p-1 rounded">🗑️</button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="p-6">
+  <!-- 🔍 Buscador -->
+  <div class="flex items-center justify-between mb-4">
+    <div class="flex items-center gap-2">
+      <span class="font-semibold">🔍 Buscar productos</span>
+      <input
+        type="text"
+        class="border px-2 py-1 rounded"
+        placeholder="Código o nombre del producto"
+        [(ngModel)]="filtro"
+      />
+      <button
+        class="bg-sky-500 text-white px-3 py-1 rounded"
+        (click)="filtrarProductos()"
+      >
+        🔎 Buscar
+      </button>
+    </div>
+    <button class="bg-sky-500 text-white px-3 py-1 rounded" (click)="mostrarFormularioCrear = true">➕ Nuevo Producto</button>
+  </div>
+
+  <!-- 📋 Tabla de productos -->
+  <table class="w-full border border-gray-300">
+    <thead class="bg-sky-100 text-left">
+      <tr>
+        <th class="p-2">Código</th>
+        <th class="p-2">Nombre</th>
+        <th class="p-2">Estado</th>
+        <th class="p-2">Agregado</th>
+        <th class="p-2">Precio</th>
+        <th class="p-2">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productosPaginados" class="border-t">
+        <td class="p-2">{{ producto.codigo }}</td>
+        <td class="p-2">{{ producto.nombre }}</td>
+        <td class="p-2">{{ producto.estado }}</td>
+        <td class="p-2">{{ producto.fechaAgregado | date:'dd/MM/yyyy' }}</td>
+        <td class="p-2">{{ producto.precio | currency }}</td>
+        <td class="p-2 flex gap-2">
+          <button
+            class="bg-gray-500 text-white px-2 py-1 rounded mr-1"
+            (click)="mostrarFormularioEditarProducto(producto)"
+            title="Editar producto"
+          >
+            ✏️
+          </button>
+          <button
+            class="bg-red-500 text-white px-2 py-1 rounded"
+            (click)="eliminarProducto(producto.id, producto.nombre)"
+            title="Eliminar producto"
+          >
+            🗑
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- 📄 Paginación -->
+  <div class="flex justify-end mt-4 items-center gap-2">
+    <button
+      class="text-sm px-3 py-1 border rounded"
+      (click)="anteriorPagina()"
+      [disabled]="paginaActual === 1"
+    >
+      ‹ Anterior
+    </button>
+    <span class="text-sm px-2">Página {{ paginaActual }} / {{ totalPaginas() }}</span>
+    <button
+      class="text-sm px-3 py-1 border rounded"
+      (click)="siguientePagina()"
+      [disabled]="paginaActual >= totalPaginas()"
+    >
+      Siguiente ›
+    </button>
+  </div>
+
+  <!-- Crear producto -->
+  <div *ngIf="mostrarFormularioCrear" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form [formGroup]="formCrearProducto" (ngSubmit)="crearProducto()" class="bg-white p-6 rounded shadow-md w-full max-w-md">
+      <h3 class="text-xl font-bold mb-4 text-center">Agregar nuevo producto</h3>
+
+      <label class="block mb-1 font-semibold">Código:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="codigo" placeholder="Código">
+      <div *ngIf="formCrearProducto.get('codigo')?.touched && formCrearProducto.get('codigo')?.invalid" class="text-red-500 text-sm">
+        El código es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Nombre:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="nombre" placeholder="Nombre del producto">
+      <div *ngIf="formCrearProducto.get('nombre')?.touched && formCrearProducto.get('nombre')?.invalid" class="text-red-500 text-sm">
+        El nombre es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Precio:</label>
+      <input class="form-control mb-4 w-full px-3 py-2 border rounded" formControlName="precio" placeholder="Precio" type="number">
+      <div *ngIf="formCrearProducto.get('precio')?.touched && formCrearProducto.get('precio')?.invalid" class="text-red-500 text-sm">
+        <div *ngIf="formCrearProducto.get('precio')?.errors?.['required']">
+          El precio es obligatorio
+        </div>
+        <div *ngIf="formCrearProducto.get('precio')?.errors?.['min']">
+          El precio debe ser mayor a 0
+        </div>
+      </div>
+      
+      <div class="flex justify-between">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+        <button type="button" (click)="mostrarFormularioCrear = false" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+      </div>
+    </form>
+  </div>
+
+  <!-- Editar producto -->
+  <div *ngIf="mostrarFormularioEditar" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+    <form [formGroup]="formEditarProducto" (ngSubmit)="editarProducto()" class="bg-white p-6 rounded shadow-md w-full max-w-md">
+      <h3 class="text-xl font-bold mb-4 text-center">Editar producto</h3>
+      <div *ngIf="formEditarProducto.invalid && formEditarProducto.touched" class="text-red-600 mb-2 text-center">
+        ⚠️ Por favor, completa todos los campos correctamente.
+      </div>
+
+      <label class="block mb-1 font-semibold">Código:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="codigo" placeholder="Código">
+      <div *ngIf="formEditarProducto.get('codigo')?.touched && formEditarProducto.get('codigo')?.invalid" class="text-red-500 text-sm">
+        El código es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Nombre:</label>
+      <input class="form-control mb-2 w-full px-3 py-2 border rounded" formControlName="nombre" placeholder="Nombre del producto">
+      <div *ngIf="formEditarProducto.get('nombre')?.touched && formEditarProducto.get('nombre')?.invalid" class="text-red-500 text-sm">
+        El nombre es obligatorio
+      </div>
+
+      <label class="block mb-1 font-semibold">Precio:</label>
+      <input class="form-control mb-4 w-full px-3 py-2 border rounded" formControlName="precio" placeholder="Precio" type="number">
+      <div *ngIf="formEditarProducto.get('precio')?.touched && formEditarProducto.get('precio')?.invalid" class="text-red-500 text-sm">
+        <div *ngIf="formEditarProducto.get('precio')?.errors?.['required']">
+          El precio es obligatorio
+        </div>
+        <div *ngIf="formEditarProducto.get('precio')?.errors?.['min']">
+          El precio debe ser mayor a 0
+        </div>
+      </div>
+
+      <div class="flex justify-between">
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Guardar</button>
+        <button type="button" (click)="mostrarFormularioEditar = false" class="bg-gray-500 text-white px-4 py-2 rounded">Cancelar</button>
+      </div>
+    </form>
+  </div>
+</div>

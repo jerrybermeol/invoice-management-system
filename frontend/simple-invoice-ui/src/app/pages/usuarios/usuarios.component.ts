@@ -75,7 +75,7 @@ export class UsuariosComponent implements OnInit {
   }
 
   eliminarUsuario(id: number, nombre: string): void {
-    AlertaUtil.confirmarEliminar(nombre).then((resultado) => {
+    AlertaUtil.confirmarEliminar(nombre, 'usuario').then((resultado) => {
       if (!resultado.isConfirmed) return;
   
       this.http.delete(`https://localhost:7230/api/Usuarios/${id}`).subscribe({
