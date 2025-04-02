@@ -227,7 +227,7 @@
     "Parameters": [],
     "ReturnTypes": [
       {
-        "Type": "System.Collections.Generic.IEnumerable\u00601[[SimpleInvoice_Api.Models.Factura, SimpleInvoice_Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "Type": "System.Collections.Generic.IEnumerable\u00601[[SimpleInvoice_Api.Models.DTOs.FacturaDto, SimpleInvoice_Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -239,21 +239,21 @@
   },
   {
     "ContainingType": "SimpleInvoice_Api.Controllers.FacturasController",
-    "Method": "PostFactura",
+    "Method": "CrearFactura",
     "RelativePath": "api/Facturas",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
     "Parameters": [
       {
-        "Name": "factura",
-        "Type": "SimpleInvoice_Api.Models.Factura",
+        "Name": "facturaDto",
+        "Type": "SimpleInvoice_Api.Models.DTOs.FacturaCreateDto",
         "IsRequired": true
       }
     ],
     "ReturnTypes": [
       {
-        "Type": "SimpleInvoice_Api.Models.Factura",
+        "Type": "SimpleInvoice_Api.Models.DTOs.FacturaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
@@ -265,7 +265,7 @@
   },
   {
     "ContainingType": "SimpleInvoice_Api.Controllers.FacturasController",
-    "Method": "GetFactura",
+    "Method": "GetFacturaPorId",
     "RelativePath": "api/Facturas/{id}",
     "HttpMethod": "GET",
     "IsController": true,
@@ -279,7 +279,7 @@
     ],
     "ReturnTypes": [
       {
-        "Type": "SimpleInvoice_Api.Models.Factura",
+        "Type": "SimpleInvoice_Api.Models.DTOs.FacturaDto",
         "MediaTypes": [
           "text/plain",
           "application/json",
