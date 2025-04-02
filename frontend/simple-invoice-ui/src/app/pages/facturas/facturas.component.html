@@ -1,0 +1,40 @@
+<div class="p-6">
+    <div class="flex justify-between items-center mb-4">
+      <div class="flex gap-2 items-center">
+        <label class="font-semibold">🔍 Buscar facturas</label>
+        <input [(ngModel)]="filtro" class="border px-2 py-1 rounded" placeholder="Cliente o # de factura" />
+        <button class="bg-sky-500 text-white px-3 py-1 rounded" (click)="filtrarFacturas()">🔎 Buscar</button>
+      </div>
+      <button class="bg-sky-500 text-white px-3 py-1 rounded">➕ Nueva Factura</button>
+    </div>
+  
+    <table class="w-full border border-gray-300">
+      <thead class="bg-sky-100 text-left">
+        <tr>
+          <th class="p-2">#</th>
+          <th class="p-2">Fecha</th>
+          <th class="p-2">Cliente</th>
+          <th class="p-2">Vendedor</th>
+          <th class="p-2">Estado</th>
+          <th class="p-2">Total</th>
+          <th class="p-2">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let factura of facturasFiltradas" class="border-t">
+          <td class="p-2">{{ factura.id }}</td>
+          <td class="p-2">{{ factura.fecha | date: 'dd/MM/yyyy' }}</td>
+          <td class="p-2">{{ factura.cliente.nombre }}</td>
+          <td class="p-2">{{ factura.usuario.nombre }}</td>
+          <td class="p-2">{{ factura.estado }}</td>
+          <td class="p-2">{{ factura.total | currency }}</td>
+          <td class="p-2 flex gap-2">
+            <button class="bg-gray-500 text-white px-2 py-1 rounded">✏️</button>
+            <button class="bg-sky-600 text-white px-2 py-1 rounded">⬇️</button>
+            <button class="bg-red-500 text-white px-2 py-1 rounded">🗑</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

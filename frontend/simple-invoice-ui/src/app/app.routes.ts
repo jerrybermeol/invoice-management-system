@@ -47,6 +47,11 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/productos/productos.component').then(m => m.ProductosComponent)
   },
   {
+    path: 'facturas',
+    canActivate: [authGuard],
+    loadComponent: () => import('./pages/facturas/facturas.component').then(m => m.FacturasComponent)
+  },
+  {
     path: '**',
     redirectTo: 'login'
   }
